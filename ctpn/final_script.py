@@ -16,6 +16,8 @@ from PIL import Image
 import pytesseract
 import argparse
 
+from google_cloud_request import image_to_text
+
 # creating new directory for the uploaded cheque image
 # the directory stores original image uploaded, processed image, subsection images, and text files
 # containing coordinates
@@ -28,8 +30,6 @@ class tesseract():
         self.path = path
     def change_path(self,new_path):
         self.path = new_path
-    def get_text(self):
-        return self.strings
     def get_path(self):
         return self.path
     def process(self):
@@ -39,12 +39,10 @@ class tesseract():
         # apply OCR to it
         filename = "{}.png".format(os.getpid())
         cv2.imwrite(filename, image)
-        #cv2.imshow('asdf', image)
         # load the image as a PIL/Pillow image, apply OCR, and then delete
         # the temporary file
         text = pytesseract.image_to_string(Image.open(filename))
         os.remove(filename)
-        #print(text)
         return text
 
 def resize_im(im, scale, max_scale=None):
@@ -96,10 +94,28 @@ def ctpn(sess, net, image_name):
     print(('Detection took {:.3f}s for '
            '{:d} object proposals').format(timer.total_time, boxes.shape[0]))
 
+# convert_subsection_to_text method uses tesseract - not as accurate as Google Cloud Vision API
 def convert_subsection_to_text(subsection_file_path):
     class1 = tesseract(subsection_file_path)
     return class1.process()
 
+# helper function for refine_text
+def is_alphanumeric_or_space(c):
+    x = ord(c)
+    if (x >= 65 and x <= 90) or (x >= 97 and x <= 122) or (x >= 48 and x <= 57) or c == " ":
+        return True
+    return False
+
+# removes undefined characters from string
+def refine_text(text):
+    final_string = ""
+    for c in text:
+        if is_alphanumeric_or_space(c):
+            final_string += c
+
+    return final_string
+
+# creates subsections from the coordinates returned by CTPN
 def create_image_subsections():
     dir_name = "img1"
     img = cv2.imread('data/'+dir_name+'/'+dir_name+'.jpg') # opening cheque image
@@ -109,9 +125,9 @@ def create_image_subsections():
 
     gray = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] #setting threshold
 
-    coordinates_text_file = open('data/'+dir_name+'/res_img1.txt') #opening text file containing coordinates for boxes
+    #coordinates_text_file = open('data/'+dir_name+'/res_img1.txt')
     
-    lines = [line.rstrip('\n') for line in open('data/'+dir_name+'/res_img1.txt')]
+    lines = [line.rstrip('\n') for line in open('data/'+dir_name+'/res_img1.txt')] #opening text file containing coordinates for boxes
 
     coords = []
     #adding all the coordinates in a list of lists called coords, which holds coordinates for all the boxes
@@ -119,7 +135,6 @@ def create_image_subsections():
         line = line.strip()
         line.replace("\n", "")
         nums = line.split(',')
-        #print(nums)
         coords.append(nums)
 
     #iterating through each coordinate
@@ -141,26 +156,12 @@ def create_image_subsections():
         subsection_file_path = 'data/'+dir_name+'/'+subsection_file_name
         cv2.imwrite(subsection_file_path, img_subsection)
 
-        #converting the subsection to text
-        text = convert_subsection_to_text(subsection_file_path)
+        #converting the subsection to text using Google Cloud Vision API
+        text = image_to_text(cfg.ROOT_DIR+'/'+subsection_file_path)
+        text = refine_text(text)
 
-        #print(text)
         list_of_texts.append(text)
         i += 2
-
-def is_alphanumeric(c):
-    x = ord(c)
-    if (x >= 65 and x <= 90) or (x >= 97 and x <= 122) or (x >= 48 and x <= 57):
-        return True
-    return False
-
-def refine_text(text):
-    final_string = ""
-    for c in text:
-        if is_alphanumeric(c):
-            final_string += c
-
-    return final_string
 
 if __name__ == '__main__':
 
@@ -205,20 +206,5 @@ if __name__ == '__main__':
     create_image_subsections()
 
     #now, list_of_texts contains all the strings
-
-    refined_texts = []
-
-    for text in list_of_texts:
-        try:
-            print(list_of_texts[i])
-        except:
-            print("Can't encode this string")
-        
-        new_string = refine_text(text)
-        print(new_string)
-        refined_texts.append(new_string)
-
-        i += 1      
-
-    print(refined_texts)
-  
+    print(list_of_texts)
+    
