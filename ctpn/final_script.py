@@ -119,12 +119,11 @@ def refine_text(text):
 def create_image_subsections():
     dir_name = "img1"
     img = cv2.imread('data/'+dir_name+'/'+dir_name+'.jpg') # opening cheque image
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #converting image to gray scale
+    gray = img
+    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #converting image to gray scale
+    #gray = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] #setting threshold
 
     #gray = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 115, 1)
-
-    gray = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] #setting threshold
-
     #coordinates_text_file = open('data/'+dir_name+'/res_img1.txt')
     
     lines = [line.rstrip('\n') for line in open('data/'+dir_name+'/res_img1.txt')] #opening text file containing coordinates for boxes
@@ -155,12 +154,17 @@ def create_image_subsections():
         #saving image subsection
         subsection_file_path = 'data/'+dir_name+'/'+subsection_file_name
         cv2.imwrite(subsection_file_path, img_subsection)
+        subsection_file_path = cfg.ROOT_DIR+'/'+subsection_file_path
 
         #converting the subsection to text using Google Cloud Vision API
-        text = image_to_text(cfg.ROOT_DIR+'/'+subsection_file_path)
-        text = refine_text(text)
+        #text = image_to_text(subsection_file_path)
+        #text = refine_text(text)
 
+        # converting the subsection to text using Tesseract
+        text = convert_subsection_to_text(subsection_file_path)
+        text = refine_text(text)
         list_of_texts.append(text)
+        
         i += 2
 
 if __name__ == '__main__':
@@ -207,4 +211,3 @@ if __name__ == '__main__':
 
     #now, list_of_texts contains all the strings
     print(list_of_texts)
-    
