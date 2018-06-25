@@ -1,9 +1,13 @@
 import torch
 import torchvision.datasets
 import torchvision.transforms as transforms
+from lib.fast_rcnn.config import cfg
+
 #trainset=torchvision.datasets.ImageFolder(root='home/aditya/research/dataset-dist/phase-01/training')
 
+# determining device to run model on
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 """
 generic_transform = transforms.Compose([
     transforms.ToPILImage(),
@@ -21,10 +25,12 @@ generic_transform = transforms.Compose([
 trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform=transforms.Compose([transforms.ToPILImage(),transforms.Grayscale(),transforms.Resize((720,720)),transforms.ToTensor(),transforms.Normalize((0.5),(2))])
 """
 
-trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
+# retrieving training dataset for classifier
+trainset = torchvision.datasets.ImageFolder(root=cfg.ROOT_DIR + '/classifier-docs/training',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()])) 
 
-testset = torchvision.datasets.ImageFolder(root='/share1/product.labs/dataset/benchmark_data',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
+# retrieving testing dataset for classifier
+testset = torchvision.datasets.ImageFolder(root=cfg.ROOT_DIR +'/classifier-docs/testing',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()]))
 
 # batch size = 32 should have been 1
@@ -32,7 +38,7 @@ transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720
 trainloader=torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=15)
 testloader = torch.utils.data.DataLoader(testset, batach_size = 1, shuffle=True, num_workers= 15)
 
-classes = ('fake','pristine')
+classes = ('fake','genuine')
 
 import torch.nn as nn
 import torch.nn.functional as F

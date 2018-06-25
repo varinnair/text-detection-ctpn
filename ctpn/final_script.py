@@ -157,14 +157,15 @@ def create_image_subsections():
         subsection_file_path = cfg.ROOT_DIR+'/'+subsection_file_path
 
         #converting the subsection to text using Google Cloud Vision API
-        #text = image_to_text(subsection_file_path)
-        #text = refine_text(text)
+        text = image_to_text(subsection_file_path)
+        text = refine_text(text)
 
         # converting the subsection to text using Tesseract
-        text = convert_subsection_to_text(subsection_file_path)
-        text = refine_text(text)
-        list_of_texts.append(text)
+        #text = convert_subsection_to_text(subsection_file_path)
+        #text = refine_text(text)
         
+        list_of_texts.append(text)
+
         i += 2
 
 if __name__ == '__main__':
@@ -197,7 +198,6 @@ if __name__ == '__main__':
     for i in range(2):
         _, _ = test_ctpn(sess, net, im)
 
-    
     im_names = glob.glob(os.path.join(cfg.DATA_DIR, dir_name, '*.png')) + \
                glob.glob(os.path.join(cfg.DATA_DIR, dir_name, '*.jpg'))
 
