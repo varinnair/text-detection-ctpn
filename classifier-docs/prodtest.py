@@ -1,7 +1,10 @@
+import os
 import torch
 import torchvision.datasets
 import torchvision.transforms as transforms
 #trainset=torchvision.datasets.ImageFolder(root='home/aditya/research/dataset-dist/phase-01/training')
+
+ROOT_DIR = os.getcwd()
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 """
@@ -21,10 +24,10 @@ generic_transform = transforms.Compose([
 trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform=transforms.Compose([transforms.ToPILImage(),transforms.Grayscale(),transforms.Resize((720,720)),transforms.ToTensor(),transforms.Normalize((0.5),(2))])
 """
 
-trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
+trainset = torchvision.datasets.ImageFolder(root=ROOT_DIR+'classifier-docs/training',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()])) 
 
-testset = torchvision.datasets.ImageFolder(root='/share1/product.labs/dataset/benchmark_data',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
+testset = torchvision.datasets.ImageFolder(root=ROOT_DIR+'classifier-docs/testing',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()]))
 
 # batch size = 32 should have been 1
