@@ -4,7 +4,6 @@ import numpy as np
 import os, sys, cv2
 import glob
 import shutil
-import st
 sys.path.append(os.getcwd())
 from lib.networks.factory import get_network
 from lib.fast_rcnn.config import cfg, cfg_from_file
@@ -17,7 +16,6 @@ from PIL import Image
 import pytesseract
 import argparse
 
-from google_cloud_request import image_to_text
 
 # creating new directory for the uploaded cheque image
 # the directory stores original image uploaded, processed image, subsection images, and text files
@@ -78,7 +76,8 @@ class gocr():
         return self.path
 
     def pattern1(self):
-        text_file = open("testing.txt", "r")
+        print(cfg.ROOT_DIR)
+        text_file = open(cfg.ROOT_DIR+"/ctpn/aditya/testing.txt", "r")
         lines = text_file.readlines()
         for line in lines:
             self.add_pattern(line.strip())
@@ -107,7 +106,7 @@ class gocr():
         holla1 = Remove(holla1)
         return holla1
 
-gocr1 = gocr()
+#gocr1 = gocr()
 
 
 def resize_im(im, scale, max_scale=None):
