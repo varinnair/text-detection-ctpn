@@ -34,7 +34,6 @@ testset = torchvision.datasets.ImageFolder(root=cfg.ROOT_DIR +'/classifier-docs/
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()]))
 
 # batch size = 32 should have been 1
-
 trainloader=torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=15)
 testloader = torch.utils.data.DataLoader(testset, batach_size = 1, shuffle=True, num_workers= 15)
 
