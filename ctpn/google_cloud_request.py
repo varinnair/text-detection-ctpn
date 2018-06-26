@@ -24,7 +24,7 @@ def image_to_text(image_path):
     # client.text_detection(image=image) instead
     response = client.text_detection(image=image)
 
-    #getting text annotations
+    # getting text annotations
     text = response.text_annotations
 
     if(len(text) >0):
@@ -38,4 +38,3 @@ def image_to_text(image_path):
 
 
 #image_to_text('C:/Users/varin/Documents/GitHub/text-detection-ctpn/data/img1/subsection_10.jpg')
-
