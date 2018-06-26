@@ -1,17 +1,3 @@
-<<<<<<< HEAD
 {
-  "type": "service_account",
-  "project_id": "norse-journey-208017",
-  "private_key_id": "d150bd082033d1692e814f6cff493affecd6298e",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6tnAN8K2paVHe\nfyDpJ1m0+xrlVicJ57IR4vD1qATLSSoZNVa+AofAIS6WjRYm+KQ7saoBQp+sOOMB\nUi2w7qP2tj9aG2MOMn5PZ3yQ9Gnj12HaKGaXU2IzjmR6qmW5nqV4q7CMoWT37CNJ\ncqtyLo2mBYl8g2GOP9yJnWUUS2mClwAcrLRch/cjKC7Y9JaJyV5D3XPcVndzGF4I\nUTi5+0H4HDrPd0lKbNw0VpfblxthapNrZ7zCj9kwmaBwbv4cSXPDrC7A4OtzTwYg\nwA77mbksisPwteZkFF7SZSI1SPbXCuGa5tT1djTAxkwldiuWaQvuLxP1VRQikBa5\nEXMNfgODAgMBAAECggEABnUJwgmpT9sTGEFIR5fzS8WFZBoLJpYLPAAfujcx1z/0\nA0QreE3JGRVssYs2kWl28JOP4BRIRmH/Q8vuRZizNfSOk1SwI80OPjvDfJXfVaBc\nw3kzNxeMpWDOy8k51GYOrfIuHGb2gXZ6r+8Vy9CdWHkHjLVUeeFuhJnbZYzIHNqB\n6Lh7jnxnBUeEM5jnzCaJx0YHHCevkL0+UdsUVXI/VJUsVyTpJjgkXGR7ISSurbn8\ngDameVaPGVUuJLkIuw1QAU4LelhIHMGkHfgyQlz/YeEVbw/jSebn8RLda6Rzu+kj\nui9lZUbluJ2qCE1csAxFBScgzjAX1njEfdzPUT+96QKBgQDazZzoNCpIef0RHkn0\njylWhDgK0vEv71Ni4qdmlH2cBZKuDqI3YdpQds/OxLK1RbKyFRl+znmDlCwFLuqU\no3RYRo6MI0Gy7IkRi50qTy2+f2Tmxm+fbF5xDezQTDThsfdpmqYsmpYdBDE/jAXJ\n5Yr1U0znQj1e9DExdNKxgos/qQKBgQDadDv8ZAIF5M0zZxJjgvlEtMS14NA3tdPi\nOwWvEp58O1U017uREy2PWc9aYoh6ZJvJXoisFJzru68BxL6WE8tUrzQGFIdHxTSp\nAcIgTdqkVyQFeLzyj8Zv4zbPVwyV3cNCUDT1T32oT3xo05A8CEuVy33S3noHAXYc\nXwld+J2VSwKBgQDQFhFuSAYabWF+gTbGTcx7ij0eFiToeIvuFC4uAXRACJDJ1gLx\n9q7ALW5Ob4ShnspmUGixzz2DJEyFFWxktdq1BU0V+4XE2u00cXmjvi975v4X94o6\nrL5YeGzKYF8+cZkhpsD41H+E0vLfQ5RRwWrZC0KtALMK9eM+7KJfzQ4PGQKBgQCQ\nps7hvUcpp+vI0cN3aU6tlBV9abP2b8wxzWtiFi4jjRZKu19UHSLZ/Vo0O3KruNr/\naD2P1MZjwg+MWD7rGYhWNv132TgK6iaIksV8ppDUqW8MwHo9E78Ob6HngXiv8/xL\neNjYZx6JyLhUoWKsncGPGwPiEbcz1F/lQXjuZKXUKQKBgEZHBmNsG+62bVqkponI\nzGtGTq9GQlhcFsH5GfY+vrDYGkr/6d42Z5zqZflyxyTj8YPDpt0+renKHn0b11Ro\nHZoOaugYcKuq7hFgPUX3YOZCQffCgwwkzc9+yiJKDsaOggZB6qNGiLYPhF3Yhamd\ngMGMbsNzcK6/9GqK8lW0HMnj\n-----END PRIVATE KEY-----\n",
-  "client_email": "ocr-conversion@norse-journey-208017.iam.gserviceaccount.com",
-  "client_id": "114959107154676850524",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://accounts.google.com/o/oauth2/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ocr-conversion%40norse-journey-208017.iam.gserviceaccount.com"
+  "xyz": "xyz"
 }
-
-=======
-xyz
->>>>>>> 948a3e7273e8967e88d3db032e387d48045f8636
