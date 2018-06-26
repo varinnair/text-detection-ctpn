@@ -19,13 +19,11 @@ sys.path.append(os.getcwd())
 
 # adapted from http://stackoverflow.com/questions/20716842/python-download-images-from-google-image-search
 
-
 def get_soup(url, header):
     return BeautifulSoup(
         urllib.request.urlopen(urllib.request.Request(url, headers=header)),
         "html.parser",
     )
-
 
 def main(args):
     parser = argparse.ArgumentParser(description="Scrape Google images")
@@ -38,7 +36,7 @@ def main(args):
     parser.add_argument(
         "-d",
         "--directory",
-        default="C:/Users/varin/Documents/GitHub/text-detection-ctpn/classifier-docs/training",
+        default="C:/Users/varin/Documents/GitHub/text-detection-ctpn/classifier-docs/training/random-images",
         type=str,
         help="save directory",
     )
@@ -81,7 +79,6 @@ def main(args):
         except Exception as e:
             print("could not load : " + img)
             print(e)
-
 
 if __name__ == "__main__":
 
