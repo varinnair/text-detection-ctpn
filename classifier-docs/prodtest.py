@@ -2,27 +2,10 @@ import os
 import torch
 import torchvision.datasets
 import torchvision.transforms as transforms
-#trainset=torchvision.datasets.ImageFolder(root='home/aditya/research/dataset-dist/phase-01/training')
 
 ROOT_DIR = os.getcwd()
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-"""
-generic_transform = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.ToTensor(), 
-    transforms.Grayscale(),
-    #transforms.CenterCrop(size=128),
-    transforms.Resize((720,720)),
-    transforms.Normalize((0.5), (2)),
-    #transforms.ToTensor(),
-])
-"""
-# trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform=generic_transform)
-
-"""
-trainset = torchvision.datasets.ImageFolder(root='/home/product.labs/dataset-dist/phase-01/training',transform=transforms.Compose([transforms.ToPILImage(),transforms.Grayscale(),transforms.Resize((720,720)),transforms.ToTensor(),transforms.Normalize((0.5),(2))])
-"""
 
 trainset = torchvision.datasets.ImageFolder(root=ROOT_DIR+'classifier-docs/training',transform= transforms.Compose([transforms.ToTensor(),transforms.ToPILImage(),
 transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720,720)),transforms.ToTensor()])) 
@@ -32,7 +15,7 @@ transforms.transforms.Grayscale(num_output_channels = 1), transforms.Resize((720
 
 # batch size = 32 should have been 1
 
-trainloader=torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=15)
+trainloader=torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=20)
 testloader = torch.utils.data.DataLoader(testset, batach_size = 1, shuffle=True, num_workers= 15)
 
 classes = ('fake','pristine')
@@ -69,26 +52,6 @@ class Net(nn.Module):
         self.fc1 = nn.Linear(128,84)
         self.fc2 = nn.Linear(84,2)
 
-        """
-        self.conv1 = nn.Conv2d(3, 6, 5,stride=1)
-        self.bn1 = nn.BatchNorm2d(6)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.bn2 = nn.BatchNorm2d(16)
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
-        """
-    """
-    def forward(self, x):
-        x = self.pool(self.bn1(F.relu(self.conv1(x))))
-        x = self.pool(self.bn2(F.relu(self.conv2(x))))
-        x = x.view(-1, 16 * 5 * 5)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-    """
     def forward(self, x):
         x = self.apool1(F.relu(self.bn1(self.conv1(self.pool1(x)))))
         x = self.apool2(F.relu(self.bn2(self.conv2(x))))
@@ -113,8 +76,7 @@ import torch.optim as optim
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-
-for epoch in range(2):  # loop over the dataset multiple times
+for epoch in range(50):  # loop over the dataset multiple times
 
     running_loss = 0.0
      
