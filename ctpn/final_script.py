@@ -26,14 +26,16 @@ global dir_name # this directory name will be determined by name of picture uplo
 global list_of_texts
 
 class tesseract():
-    def __init__(self,path):
+    def __init__(self, path):
         self.path = path
-    def change_path(self,new_path):
+
+    def change_path(self, new_path):
         self.path = new_path
+
     def get_path(self):
         return self.path
-    def process(self):
 
+    def process(self):
         image = cv2.imread(self.path)
         # write the grayscale image to disk as a temporary file so we can
         # apply OCR to it
@@ -44,6 +46,11 @@ class tesseract():
         text = pytesseract.image_to_string(Image.open(filename))
         os.remove(filename)
         return text
+
+# convert_subsection_to_text method uses tesseract - not as accurate as Google Cloud Vision API
+def convert_subsection_to_text(subsection_file_path):
+    class1 = tesseract(subsection_file_path)
+    return class1.process()
 
 def resize_im(im, scale, max_scale=None):
     f=float(scale)/min(im.shape[0], im.shape[1])
@@ -93,11 +100,6 @@ def ctpn(sess, net, image_name):
     timer.toc()
     print(('Detection took {:.3f}s for '
            '{:d} object proposals').format(timer.total_time, boxes.shape[0]))
-
-# convert_subsection_to_text method uses tesseract - not as accurate as Google Cloud Vision API
-def convert_subsection_to_text(subsection_file_path):
-    class1 = tesseract(subsection_file_path)
-    return class1.process()
 
 # helper function for refine_text
 def is_alphanumeric_or_space(c):
@@ -157,14 +159,14 @@ def create_image_subsections():
         subsection_file_path = cfg.ROOT_DIR+'/'+subsection_file_path
 
         #converting the subsection to text using Google Cloud Vision API
-        text = image_to_text(subsection_file_path)
-        text = refine_text(text)
+        #text = image_to_text(subsection_file_path)
+        #text = refine_text(text)
 
         # converting the subsection to text using Tesseract
         #text = convert_subsection_to_text(subsection_file_path)
         #text = refine_text(text)
         
-        list_of_texts.append(text)
+        #list_of_texts.append(text)
 
         i += 2
 
