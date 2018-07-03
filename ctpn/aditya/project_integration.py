@@ -16,14 +16,14 @@ from PIL import Image
 import pytesseract
 import argparse
 
-
 # creating new directory for the uploaded cheque image
 # the directory stores original image uploaded, processed image, subsection images, and text files
 # containing coordinates
 # for each cheque uploaded, we have one directory
 global dir_name  # this directory name will be determined by name of picture uploaded
 global list_of_texts
-
+global list_of_texts1
+global list_of_texts2
 
 class tesseract():
     def __init__(self, path):
@@ -235,7 +235,7 @@ def create_image_subsections():
         text2 = tess1.process()
 
         list_of_texts1.append(text1)
-        #i += 2
+        i += 2
         list_of_texts2.append(text2)
 
 
@@ -277,12 +277,9 @@ if __name__ == '__main__':
         print(('Demo for {:s}'.format(im_name)))
         ctpn(sess, net, im_name)
 
-    global list_of_texts1
-    global list_of_texts2
-    #list_of_texts1 = []
-    #list_of_texts2 = []
+    list_of_texts1 = []
+    list_of_texts2 = []
     create_image_subsections()
-
     # now, list_of_texts contains all the strings
-print(list_of_texts1)
-print(list_of_texts2)
+    print(list_of_texts1)
+    print(list_of_texts2)
