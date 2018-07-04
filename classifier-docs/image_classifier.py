@@ -10,6 +10,7 @@ from sklearn import svm
 import numpy as np
 import PIL
 import glob
+from sklearn.externals import joblib
 
 def extract_resnet(X,i):  
     print(str(i))
@@ -90,12 +91,15 @@ if __name__ == "__main__":
     oc_svm_clf = svm.OneClassSVM(gamma=0.001, kernel='rbf', nu=0.08)  # Obtained using grid search
     if_clf = IsolationForest(contamination=0.08, max_features=1.0, max_samples=1.0, n_estimators=40)  # Obtained using grid search
 
+    # fitting models to training data
     oc_svm_clf.fit(X_train)
     if_clf.fit(X_train)
 
+    # predicting data on testing data
     oc_svm_preds = oc_svm_clf.predict(X_test)
     if_preds = if_clf.predict(X_test)
 
+    # printing predictions
     print()
     print("OC-SVM predictions")
     print(oc_svm_preds)
@@ -103,4 +107,6 @@ if __name__ == "__main__":
     print("Isolated forest predictions")
     print(if_preds)
 
-    # Further compute accuracy, precision and recall for the two predictions sets obtained
+    # saving svm and if models
+    joblib.dump(oc_svm_clf, 'oc-svm.pkl')
+    joblib.dump(if_clf, 'isolated-forest.pkl')
