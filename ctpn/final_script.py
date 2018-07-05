@@ -126,7 +126,6 @@ def create_image_subsections():
     #gray = cv2.threshold(gray, 125, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1] #setting threshold
 
     #gray = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 115, 1)
-    #coordinates_text_file = open('data/'+dir_name+'/res_img1.txt')
     
     lines = [line.rstrip('\n') for line in open('data/'+dir_name+'/res_img1.txt')] #opening text file containing coordinates for boxes
 
@@ -159,14 +158,14 @@ def create_image_subsections():
         subsection_file_path = cfg.ROOT_DIR+'/'+subsection_file_path
 
         #converting the subsection to text using Google Cloud Vision API
-        #text = image_to_text(subsection_file_path)
-        #text = refine_text(text)
+        text = image_to_text(subsection_file_path)
+        text = refine_text(text)
 
         # converting the subsection to text using Tesseract
         #text = convert_subsection_to_text(subsection_file_path)
         #text = refine_text(text)
         
-        #list_of_texts.append(text)
+        list_of_texts.append(text)
 
         i += 2
 
